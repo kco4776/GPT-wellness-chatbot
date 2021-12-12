@@ -31,7 +31,6 @@
 		$('#msg-'+n_items).append('<div class="msg-box"><div class="flr"><div class="messages"><p class="msg">'+text+'</p></div><span class="timestamp"><span class="username">User</span>&bull;<span class="posttime">'+time+'</span></span></div></div>>');
 		document.getElementById('msg-'+n_items).scrollIntoView({block: 'start', behavior: 'smooth'});
 		$.post('/chat', {msg: text}).done(function(data) {
-			console.log(data);
 			n_items = $('.chat-window').children().length;
 			now = new Date();
 			time = now.getHours()+':'+now.getMinutes();
