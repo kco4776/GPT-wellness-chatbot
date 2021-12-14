@@ -34,6 +34,72 @@
                     <span class="fa fa-chevron-right fa-lg" style="margin-top:400px"></span>
                 </a>
             </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Launch demo modal
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Soongsimi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <section class="chatbox">
+                    <section class="chat-window">
+                    </section>
+                    <div class="chat-input">
+                        <input id="text-input" type="text" placeholder="Type a message" />
+                        <button id="button-input">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,.38)" d="M17,12L12,17V14H8V10H12V7L17,12M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L5,8.09V15.91L12,19.85L19,15.91V8.09L12,4.15Z" /></svg>
+                        </button>
+                    </div>
+                  </section>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
+<!--<script src="../static/js/script.js"></script>-->
+<script type="text/javascript">
+	function get_response() {
+		let n_items = $('.chat-window').children().length;
+		let text = $('#text-input').val();
+		let now = new Date();
+		let time = now.getHours()+':'+now.getMinutes();
+		if (text == '') return ;
+		$('#text-input').val('');
+		$('.chat-window').append('<article class="msg-container msg-self" id="msg-'+n_items+'"></article>');
+		$('#msg-'+n_items).append('<div class="msg-box"><div class="flr"><div class="messages"><p class="msg">'+text+'</p></div><span class="timestamp"><span class="username">User</span>&bull;<span class="posttime">'+time+'</span></span></div></div>>');
+		document.getElementById('msg-'+n_items).scrollIntoView({block: 'start', behavior: 'smooth'});
+		$.post('/chat', {msg: text}).done(function(data) {
+			n_items = $('.chat-window').children().length;
+			now = new Date();
+			time = now.getHours()+':'+now.getMinutes();
+			$('.chat-window').append('<article class="msg-container msg-remote" id="msg-'+n_items+'"></article>')
+			$('#msg-'+n_items).append('<div class="msg-box"><img class="user-img" src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro" /><div class="flr"><div class="messages"><p class="msg">'+data+'</p></div><span class="timestamp"><span class="username">숭심이</span>&bull;<span class="posttime">'+time+'</span></span></div></div>>');
+			document.getElementById('msg-'+n_items).scrollIntoView({block: 'start', behavior: 'smooth'});
+		})
+		.fail(function (jqXHR) {
+			alert("server error!")
+		});
+	}
+
+	$('.chat-input input').keyup(function (e) {
+		if ($(this).val() == '') $(this).removeAttr('good');
+		else $(this).attr('good', '');
+	});
+
+	$('#text-input').keypress(function(e) {
+		if(e.which == 13) {
+			get_response();
+		}
+	});
+	$('#button-input').click(function() {
+		get_response();
+	});
+</script>
 </body>
 </html>
