@@ -78,7 +78,7 @@ def generation(seq, max_len=48):
 
 @app.route("/")
 def index():
-    return render_template("temp.html")
+    return render_template("index.html")
 
 
 @app.route('/chat', methods=['POST'])
