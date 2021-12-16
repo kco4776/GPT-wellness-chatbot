@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: 'gpt-wellness-chatbot'
+servers:
+  - url: 'https://master-gpt-wellness-chatbot-kco4776.endpoint.ainize.ai/'
+paths:
+  /chat:
+    post:
+        requestBody:
+            required: true
+            content:
+              multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    msg:
+                      type: string
+
+        responses:
+            '200':
+                description: success
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            '400':
+                description: request fail
+            '429':
+                description: too many requests
+            '500':
+                description: generation error
