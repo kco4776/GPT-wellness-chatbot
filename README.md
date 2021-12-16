@@ -6,10 +6,10 @@
 generative-based open domain chatbot
 
 ### How-to-use
-''' bash
+```bash
 curl -X 'POST' \
-'https://master-gpt-wellness-chatbot-kco4776.endpoint.ainize.ai/chat' \
--H 'accept: application/json' \
--H 'Content-Type: multipart/form-data' \
--F 'msg=너무 힘들다'
-'''
+  'https://master-gpt-wellness-chatbot-kco4776.endpoint.ainize.ai/chat' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'msg=너무 힘들다'
+```
