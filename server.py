@@ -1,7 +1,7 @@
 import time
 
 import torch
-from flask import Flask, render_template, request, Response, make_response
+from flask import Flask, render_template, request, Response
 from transformers import (
     AutoTokenizer,
     AutoModelForSequenceClassification,
@@ -83,7 +83,6 @@ def index():
 
 @app.route('/chat', methods=['POST'])
 def get_response():
-    user_input = request.form['msg']
     if requests_queue.qsize() > BATCH_SIZE:
         return {'error': 'Too many requests'}, 429
     try:
