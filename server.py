@@ -11,7 +11,7 @@ from queue import Queue, Empty
 import threading
 
 requests_queue = Queue()
-BATCH_SIZE = 1
+BATCH_SIZE = 10
 CHECK_INTERVAL = 0.1
 
 U_TKN = '<usr>'
